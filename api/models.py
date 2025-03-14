@@ -35,3 +35,17 @@ class Doctor(models.Model):
     last_name = models.CharField(max_length=100)
     speciality = models.CharField(max_length=100, choices=specialization_choices, blank=True, null=True)
     license_number = models.CharField(max_length=100, unique=True)
+
+
+class DoctorPatientMapping(models.Model):
+    id = models.AutoField(primary_key=True)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    assigned_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('doctor', 'patient') # this is to ensure no multiple assigning of doctor to patient
+
+    def __str__(self):
+        return f'{self.doctor} -> {self.patient}'
+

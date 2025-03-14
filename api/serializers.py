@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from api.models import Patient, Doctor
+from api.models import Patient, Doctor, DoctorPatientMapping
 
 
 class PatientSerializer(ModelSerializer):
@@ -12,6 +12,13 @@ class PatientSerializer(ModelSerializer):
 class DoctorSerializer(ModelSerializer):
     class Meta:
         model = Doctor
+        fields = '__all__'
+
+
+
+class DoctorPatientMappingSerializer(ModelSerializer):
+    class Meta:
+        model = DoctorPatientMapping
         fields = '__all__'
 
 
