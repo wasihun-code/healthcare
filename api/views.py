@@ -13,10 +13,25 @@ class DoctorListViewSet(ModelViewSet):
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(
+            {"message" : f"Doctor {instance.first_name} {instance.first_name} was deleted successfully"},
+            status=status.HTTP_200_OK
+        )
 
 class PatientListViewSet(ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(
+            {"message" : f"Patient {instance.first_name} {instance.first_name} was deleted successfully"},
+            status=status.HTTP_200_OK
+        )
 
 
 class DoctorPatientMappingViewSet(ModelViewSet):
@@ -26,6 +41,9 @@ class DoctorPatientMappingViewSet(ModelViewSet):
 
 class PatientDoctorsList(ViewSet):
     def list(self, request, patient_id=None):
+        if not patient_id:
+            return Response({'error': 'Patient Id is required to list all the doctors a specific patient is assigned'})
+
         patient = get_object_or_404(Patient, pk=patient_id)
         mappings = DoctorPatientMapping.objects.filter(patient=patient)
         doctors = [mapping.doctor for mapping in mappings]

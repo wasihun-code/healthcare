@@ -8,12 +8,20 @@ class PatientSerializer(ModelSerializer):
         model = Patient
         fields = '__all__'
 
+    def validate_email(self, value):
+        instance = self.instance  # Get the current patient instance
+        if instance and instance.email == value:
+            return value
+
+        if Patient.objects.filter(email=value).exists():
+            raise serializers.ValidationError('Patient with this email already exists')
+        return value
+
 
 class DoctorSerializer(ModelSerializer):
     class Meta:
         model = Doctor
         fields = '__all__'
-
 
 
 class DoctorPatientMappingSerializer(ModelSerializer):
