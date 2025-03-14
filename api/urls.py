@@ -40,12 +40,10 @@ urlpatterns = [
         'get': 'list',
         'post': 'create',
     }), name='mapping-list'),
+    path('mappings/<int:pk>/delete', DoctorPatientMappingViewSet.as_view({
+        'delete': 'destroy'
+    }), name='delete-mapping'),
     path('mappings/<int:patient_id>', PatientDoctorsList.as_view({
         'get': 'list'
     }), name='patient-doctors'),
-
-    path('mappings/<int:pk>', DoctorPatientMappingViewSet.as_view({
-        'delete': 'destroy'
-    }), name='delete-mapping'),
-
 ]
