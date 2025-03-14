@@ -1,13 +1,12 @@
-from django.shortcuts import render, get_object_or_404
-from rest_framework import status
+from rest_framework import status, generics
+from django.contrib.auth.models import User
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
+from django.shortcuts import get_object_or_404
 
-from api.serializers import PatientSerializer, DoctorSerializer, DoctorPatientMappingSerializer
+from api.serializers import PatientSerializer, DoctorSerializer, DoctorPatientMappingSerializer, RegisterSerializer
 from api.models import Patient, Doctor, DoctorPatientMapping
-
-
-# Create your views here.
 
 
 class DoctorListViewSet(ModelViewSet):
@@ -28,12 +27,13 @@ class DoctorPatientMappingViewSet(ModelViewSet):
 class PatientDoctorsList(ViewSet):
     def list(self, request, patient_id=None):
         patient = get_object_or_404(Patient, pk=patient_id)
-        print(patient)
         mappings = DoctorPatientMapping.objects.filter(patient=patient)
-        print(mappings)
         doctors = [mapping.doctor for mapping in mappings]
-        print(doctors)
         serializer = DoctorSerializer(doctors, many=True)
-        print(serializer.data)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+class RegisterViewSet(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
+    permission_classes = [AllowAny]

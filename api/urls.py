@@ -1,13 +1,19 @@
 from django.urls import  path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from api.views import (
     DoctorListViewSet,
     PatientListViewSet,
     DoctorPatientMappingViewSet,
-    PatientDoctorsList
+    PatientDoctorsList, RegisterViewSet
 )
 
 urlpatterns = [
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/', RegisterViewSet.as_view(), name='register'),
+
+
     path('doctors/', DoctorListViewSet.as_view({
         'get': 'list',
         'post': 'create',
