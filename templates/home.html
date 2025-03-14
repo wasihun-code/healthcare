@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCare API - Welcome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #F4F4F4;
+            color: #333;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: linear-gradient(90deg, #4CAF50, #2E7D32);
+            padding: 30px;
+            color: white;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #2E7D32;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 12px;
+            font-size: 18px;
+            background: #E8F5E9;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        li a {
+            text-decoration: none;
+            color: #1B5E20;
+            font-weight: bold;
+        }
+
+        .api-docs {
+            background: #FFF3E0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .api-docs pre {
+            background: #263238;
+            color: #ECEFF1;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: left;
+            overflow-x: auto;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .api-docs h3 {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #BF360C;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding: 20px;
+            background: #2E7D32;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        HCare - Healthcare Management System
+    </header>
+
+    <div class="container">
+        <h1>Welcome to HCare API</h1>
+        <p class="description">Manage doctors, patients, and medical records seamlessly.</p>
+
+        <div class="section">
+            <h2>🌐 Web Routes</h2>
+            <ul>
+                <li><a href="/">🏠 Home</a> - Welcome page</li>
+                <li><a href="/api/doctors/">👨‍⚕️ Doctors</a> - List all registered doctors</li>
+                <li><a href="/api/patients/">🏥 Patients</a> - List all registered patients</li>
+                <li><a href="/api/mappings/">🔗 Mappings</a> - View doctor-patient relationships</li>
+                <li><a href="/api/register/">📝 Register</a> - Create a new account</li>
+            </ul>
+        </div>
+
+        <div class="section api-docs">
+            <h2>📡 API Documentation</h2>
+            <p>Use these endpoints to interact with the system.</p>
+
+            <h3>🔐 Authentication</h3>
+            <pre>POST /api/token/
+Headers: { "Content-Type": "application/json" }
+Body: {
+    "username": "user",
+    "password": "password"
+}</pre>
+
+            <pre>POST /api/token/refresh/
+Headers: { "Content-Type": "application/json" }
+Body: {
+    "refresh": "your-refresh-token"
+}</pre>
+
+            <h3>👨‍⚕️ Doctors API</h3>
+            <pre>GET /api/doctors/</pre>
+
+            <pre>POST /api/doctors/
+Headers: { "Content-Type": "application/json" }
+Body: {
+    "name": "Dr. John Doe",
+    "specialization": "Cardiology"
+}</pre>
+
+            <pre>GET /api/doctors/{id}/</pre>
+
+            <pre>PUT /api/doctors/{id}/
+Headers: { "Content-Type": "application/json" }
+Body: {
+    "name": "Dr. Updated Name"
+}</pre>
+
+            <pre>DELETE /api/doctors/{id}/</pre>
+
+            <h3>🏥 Patients API</h3>
+            <pre>GET /api/patients/</pre>
+
+            <pre>POST /api/patients/
+Headers: { "Content-Type": "application/json" }
+Body: {
+    "name": "Jane Doe",
+    "age": 30
+}</pre>
+
+            <pre>GET /api/patients/{id}/</pre>
+
+            <pre>PUT /api/patients/{id}/
+Headers: { "Content-Type": "application/json" }
+Body: {
+    "name": "Updated Patient Name"
+}</pre>
+
+            <pre>DELETE /api/patients/{id}/</pre>
+
+            <h3>🔗 Mappings API</h3>
+            <pre>GET /api/mappings/</pre>
+
+            <pre>POST /api/mappings/
+Headers: { "Content-Type": "application/json" }
+Body: {
+    "doctor_id": 1,
+    "patient_id": 5
+}</pre>
+
+            <pre>GET /api/mappings/{patient_id}/</pre>
+
+            <pre>DELETE /api/mappings/{id}/delete/</pre>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 HCare - Healthcare Management System | Built for better healthcare management.
+    </div>
+</body>
+</html>
